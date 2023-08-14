@@ -1,9 +1,9 @@
-/* Auhor */
+# Introduction to Embedded Systems Software and Development Environments
+
+## Auhor
 
 VigneshRR alias ElectronAmpere
 
-/* Course */
+## Repository
 
-Introduction to Embedded Systems Software and Development Environments
-
-
+[Github Link](https://github.com/ElectronAmpere/introduction-to-embedded-systems.git)
