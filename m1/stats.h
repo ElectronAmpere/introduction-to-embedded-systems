@@ -92,7 +92,7 @@ int find_median(unsigned char *parray, int array_size);
  * Given an array of data and a length, returns the mean
  *
  * @param parray The address of the unsigned char array 
- * @param array_size The size of the unsigned char array
+ * @param array_size The size of the unsigned char array as n
  *
  * @return mean value from the array
  */
