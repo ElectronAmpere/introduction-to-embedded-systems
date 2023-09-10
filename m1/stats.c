@@ -39,154 +39,181 @@ int main() {
   	int mean = 0, max = 0, min = 0, median = 0;
 
   	/* Statistics and Printing Functions Go Here */
-	(void)print_statistics(test, SIZE);
-	printf("Sorted Array \t\t: [ ");
-  	(void)sort_array(test, SIZE);
-  	(void)print_array(test, SIZE);
-	printf("]\n");
-  
-  return(0);
+	printf("Array - Unsorted:\n");
+	(void)print_array(test, sizeof(test));
+	
+	(void)sort_array(test, sizeof(test));
+	printf("\nArray - Sorted:\n");
+	(void)print_array(test, sizeof(test));
+	
+	(void)print_statistics(test, sizeof(test));
+
+	return(0);
 }
 
 /* Add other Implementation File Code Here */
 int find_mean(unsigned char *parray, int array_size)
 {
-	int sum  = 0,
-		mean = 0,
-		size = 0;
-	if ((parray != NULL) && (array_size > 0)){
-		size = array_size;
-		while(size > 0){
-			sum += *parray;
-			parray++;
-			size--;
-		}
-		mean = sum/array_size;
-	} else {
-		mean = 0;
+	/* Initialise values */
+	float mean = 0.0;
+	int result = 0, size = array_size;
+
+	/* Assuming array size is n and not n-1 */
+	while ((0 < size) && (NULL != parray)){
+		mean += *parray;
+		++parray;
+		--size;
 	}
-	return (mean);
+
+	/* Calculate mean value */
+	mean /= (float)array_size;
+	result = (int)mean;
+
+	/* Result */
+	return (result);
 }
 
 int find_maximum(unsigned char *parray, int array_size)
 {
-	int max = 0;
-	if ((parray != NULL) && (array_size > 0)){
-		max = *parray;
-		while (array_size > 0){
-			parray++;
-			if (max >= *parray){
-				max = max;
-			} else {
-				max = *parray;
-			}
-			array_size--;
+	/* Initialise values */
+	int result = 0, max = 0;	
+	
+	/* Initial dummy max value */
+	max = *parray;
+
+	/* Finding max value */
+	while((0 < array_size) && (NULL != parray)){
+		if (*parray >= max){
+			max = *parray;
+		} else {
+			max = max;
 		}
-	} else {
-		max = 0;
+		++parray;
+		--array_size;
 	}
-	return (max);
+	
+	/* Copy result */
+	result = max;
+
+	return (result);
 }
 
 int find_minimum(unsigned char *parray, int array_size)
 {
-	int min = 0;
-	if ((parray != NULL) && (array_size > 0)){
-		min = *parray;
-		while (array_size > 0){
-			parray++;
-			if (min <= *parray){
-				min = min;
-			} else {
-				min = *parray;
-			}
-			array_size--;
+	int result = 0, min = 0;
+
+	/* Initialise dummy minimum value */
+	min = *parray;
+
+	/* Finding the min value */
+	while((0 < array_size) && (NULL != parray)){
+		if (*parray <= min){
+			min = *parray;
+		} else {
+			min = min;
 		}
-	} else {
-		min = 0;
+		++parray;
+		--array_size;
 	}
-	return (min);
+
+	/* Copy the result */
+	result = min;
+
+	return (result);
 }
 
 int sort_array(unsigned char *parray, int array_size)
 {
-	int ret = SORTED, min_idx = 0;
-	if ((parray != NULL) && (array_size > 0)){
-		for (int i = 0; i < (array_size - 1); i++){
-			min_idx = i;
-			for (int j = i+1; j < array_size; j++){
-				if (*(parray + j) < *(parray + min_idx)){
-					min_idx = j;
-				}
-				if (min_idx != i){
-					element_swap((parray + min_idx), (parray + i));
-				}
+	int result = 0, size = array_size, max = 0;
+	unsigned char *t_parray = parray;
+
+	while ((0 < array_size) && (NULL != parray)){
+		
+		/* Initialize max value */
+		max = *parray;
+		t_parray = parray;
+		size = array_size;
+		
+		/* Sorting from max to min value */
+		while ((0 < size) && (NULL != t_parray)){
+			if (*t_parray >= max){
+				max = *t_parray;
+
+				/* Swapping element in array */
+				element_swap(parray, t_parray);
+			} else {
+				max = max;
 			}
+			++t_parray;
+			--size;
 		}
-		ret = SORTED;
-	} else {
-		ret = UNSORTED;
+		++parray;
+		--array_size;
 	}
-	return (ret);
+	result = 0;
+	return (result);
 }
 
 int find_median(unsigned char *parray, int array_size)
 {
-	int median = 0, ret = 0, median_l = 0, median_r = 0;
+	int result = 0, median_points = 0, even = array_size;
+	float median = 0.0;
 
-	if ((parray != NULL) && (array_size > 0)){
-		ret = sort_array(parray, array_size);
-
-		if (ret == SORTED){
-			if ((array_size % 2) == 0)
-			{
-				median_l = (array_size / 2) - 1;
-				median_r = (median_l + 1);
-				median   = (*(parray + median_l) + *(parray + median_r));
-				median   /= 2;
-			} else {
-				median = (*(parray + (array_size % 2)));
-			}
-		}
+	/* Finding median point */
+	if (0 == (even%2)){
+		median_points = (array_size/2);
+		--median_points;
+		median = ((*(parray + median_points) + *(parray + median_points)) / 2.0);
+	} else {
+		median = *(parray + median_points);
 	}
-	return (median);
+
+	/* Copy the result */
+	result = (int)median;
+
+	return (result);
 }
 
 int print_array(unsigned char *parray, int array_size)
 {
-	int ret = PRINTED;
-	if ((parray != NULL) && (array_size > 0)){
-		while(array_size > 0){
+	int result = -1;
+
+	while((0 < array_size) && (NULL != parray)){
+		if (0 != (1 - array_size)){
+			printf("%d, ", *parray);
+		} else {
 			printf("%d", *parray);
-			parray++;
-			array_size--;
-			if (array_size > 0){
-				printf(", ");
-			} else {
-				printf(" ");
-			}
 		}
-		ret = PRINTED;
-	} else {
-		ret = NOTPRINTED;
+		++parray;
+		--array_size;
 	}
-	return (ret);
+	printf("\n");
+
+	result = 0;
+
+	return (result);
 }
 
 void element_swap(unsigned char *p1, unsigned char *p2)
 {
-	unsigned char temp = *p1;
+	int swap = 0;
+
+	swap = *p1;
 	*p1 = *p2;
-	*p2 = temp;
+	*p2 = swap;
 }
 
 int print_statistics(unsigned char *parray, int array_size)
 {
-	int ret = PRINTED;
-  	
-	printf("Mean 	\t\t: %d\n", find_mean(parray, SIZE));
-  	printf("Max 	\t\t: %d\n", find_maximum(parray, SIZE));
-  	printf("Min 	\t\t: %d\n", find_minimum(parray, SIZE));
-	printf("Median  \t\t: %d\n", find_median(parray, SIZE));
-	return (ret);
+	int result = -1;
+
+	printf("\nArray Statistics (Rounded off to closest integer) \n");
+	printf("Mean\t: %d\n",find_mean(parray, array_size));
+	printf("Max\t: %d\n",find_maximum(parray, array_size));
+	printf("Min\t: %d\n",find_minimum(parray, array_size));
+	printf("Median\t: %d\n",find_median(parray, array_size));
+	
+	result = 0;
+
+	return (result);
 }
