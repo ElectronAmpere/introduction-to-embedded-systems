@@ -36,27 +36,26 @@ int main() {
 								7,  87, 250, 230,  99,   3, 100,  90};
 
   	/* Other Variable Declarations Go Here */
-  	int mean = 0, max = 0, min = 0, median = 0;
 
   	/* Statistics and Printing Functions Go Here */
 	printf("Array - Unsorted:\n");
-	(void)print_array(test, sizeof(test));
+	print_array(test, sizeof(test));
 	
-	(void)sort_array(test, sizeof(test));
+	sort_array(test, sizeof(test));
 	printf("\nArray - Sorted:\n");
-	(void)print_array(test, sizeof(test));
+	print_array(test, sizeof(test));
 	
-	(void)print_statistics(test, sizeof(test));
+	print_statistics(test, sizeof(test));
 
 	return(0);
 }
 
 /* Add other Implementation File Code Here */
-int find_mean(unsigned char *parray, int array_size)
+unsigned char find_mean(unsigned char *parray, int array_size)
 {
 	/* Initialise values */
 	float mean = 0.0;
-	int result = 0, size = array_size;
+	unsigned char result = 0, size = array_size;
 
 	/* Assuming array size is n and not n-1 */
 	while ((0 < size) && (NULL != parray)){
@@ -73,10 +72,10 @@ int find_mean(unsigned char *parray, int array_size)
 	return (result);
 }
 
-int find_maximum(unsigned char *parray, int array_size)
+unsigned char find_maximum(unsigned char *parray, int array_size)
 {
 	/* Initialise values */
-	int result = 0, max = 0;	
+	unsigned char result = 0, max = 0;	
 	
 	/* Initial dummy max value */
 	max = *parray;
@@ -98,9 +97,9 @@ int find_maximum(unsigned char *parray, int array_size)
 	return (result);
 }
 
-int find_minimum(unsigned char *parray, int array_size)
+unsigned char find_minimum(unsigned char *parray, int array_size)
 {
-	int result = 0, min = 0;
+	unsigned char result = 0, min = 0;
 
 	/* Initialise dummy minimum value */
 	min = *parray;
@@ -122,9 +121,9 @@ int find_minimum(unsigned char *parray, int array_size)
 	return (result);
 }
 
-int sort_array(unsigned char *parray, int array_size)
+void sort_array(unsigned char *parray, int array_size)
 {
-	int result = 0, size = array_size, max = 0;
+	unsigned char size = array_size, max = 0;
 	unsigned char *t_parray = parray;
 
 	while ((0 < array_size) && (NULL != parray)){
@@ -150,13 +149,12 @@ int sort_array(unsigned char *parray, int array_size)
 		++parray;
 		--array_size;
 	}
-	result = 0;
-	return (result);
+
 }
 
-int find_median(unsigned char *parray, int array_size)
+unsigned char find_median(unsigned char *parray, int array_size)
 {
-	int result = 0, median_points = 0, even = array_size;
+	unsigned char result = 0, median_points = 0, even = array_size;
 	float median = 0.0;
 
 	/* Finding median point */
@@ -174,10 +172,8 @@ int find_median(unsigned char *parray, int array_size)
 	return (result);
 }
 
-int print_array(unsigned char *parray, int array_size)
+void print_array(unsigned char *parray, int array_size)
 {
-	int result = -1;
-
 	while((0 < array_size) && (NULL != parray)){
 		if (0 != (1 - array_size)){
 			printf("%d, ", *parray);
@@ -188,10 +184,6 @@ int print_array(unsigned char *parray, int array_size)
 		--array_size;
 	}
 	printf("\n");
-
-	result = 0;
-
-	return (result);
 }
 
 void element_swap(unsigned char *p1, unsigned char *p2)
@@ -203,17 +195,13 @@ void element_swap(unsigned char *p1, unsigned char *p2)
 	*p2 = swap;
 }
 
-int print_statistics(unsigned char *parray, int array_size)
+void print_statistics(unsigned char *parray, int array_size)
 {
-	int result = -1;
 
 	printf("\nArray Statistics (Rounded off to closest integer) \n");
 	printf("Mean\t: %d\n",find_mean(parray, array_size));
 	printf("Max\t: %d\n",find_maximum(parray, array_size));
 	printf("Min\t: %d\n",find_minimum(parray, array_size));
 	printf("Median\t: %d\n",find_median(parray, array_size));
-	
-	result = 0;
 
-	return (result);
 }

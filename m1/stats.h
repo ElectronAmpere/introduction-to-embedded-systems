@@ -21,12 +21,7 @@
 #ifndef __STATS_H__
 #define __STATS_H__
 
-/* Add Your Declarations and Function Comments here */ 
-
-#define SORTED      (0)
-#define UNSORTED    (1)
-#define PRINTED     (0)
-#define NOTPRINTED  (1)
+/* Add Your Declarations and Function Comments here */
 
 /**
  * @brief A function that prints the statistics of an array including minimum, maximum, mean, and median.
@@ -44,9 +39,9 @@
  * @param parray The address of the unsigned char array 
  * @param array_size The size of the unsigned char array
  *
- * @return PRINTED If the value is successfully printed
+ * @return void
  */
-int print_statistics(unsigned char *parray, int array_size);
+void print_statistics(unsigned char *parray, int array_size);
 
 /**
  * @brief Given an array of data and a length, prints the array to the screen
@@ -56,10 +51,9 @@ int print_statistics(unsigned char *parray, int array_size);
  * @param parray The address of the unsigned char array 
  * @param array_size The size of the unsigned char array
  *
- * @return PRINTED      = when the array is printed 
- *         NOTPRINTED   = when the array is not printed
+ * @return void
  */
-int print_array(unsigned char *parray, int array_size);
+void print_array(unsigned char *parray, int array_size);
 
 /**
  * @brief Sorts the array from largest to smallest.
@@ -69,10 +63,9 @@ int print_array(unsigned char *parray, int array_size);
  * @param parray The address of the unsigned char array 
  * @param array_size The size of the unsigned char array
  *
- * @return SORTED   = when the array is sorted
- *         UNSORTED = when the array is unsorted
+ * @return void
  */
-int sort_array(unsigned char *parray, int array_size);
+void sort_array(unsigned char *parray, int array_size);
 
 /**
  * @brief Finds the median of the array provided
@@ -84,7 +77,7 @@ int sort_array(unsigned char *parray, int array_size);
  *
  * @return median value from the array
  */
-int find_median(unsigned char *parray, int array_size);
+unsigned char find_median(unsigned char *parray, int array_size);
 
 /**
  * @brief Finds the mean of the array provided
@@ -96,7 +89,7 @@ int find_median(unsigned char *parray, int array_size);
  *
  * @return mean value from the array
  */
-int find_mean(unsigned char *parray, int array_size);
+unsigned char find_mean(unsigned char *parray, int array_size);
 
 /**
  * @brief Finds the maximum value in the array provided
@@ -108,7 +101,7 @@ int find_mean(unsigned char *parray, int array_size);
  *
  * @return maximum value from the array
  */
-int find_maximum(unsigned char *parray, int array_size);
+unsigned char find_maximum(unsigned char *parray, int array_size);
 
 /**
  * @brief Finds the minimum value in the array provided
@@ -120,7 +113,7 @@ int find_maximum(unsigned char *parray, int array_size);
  *
  * @return minimum value from the array
  */
-int find_minimum(unsigned char *parray, int array_size);
+unsigned char find_minimum(unsigned char *parray, int array_size);
 
 /**
  * @brief Swaps the elements given
